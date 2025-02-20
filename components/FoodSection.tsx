@@ -119,6 +119,18 @@ export function FoodSection({
       fontSize: 16,
       color: colors.text,
     },
+    foodName: {
+      flex: 1,
+      fontSize: 16,
+      color: colors.text,
+      textAlign: 'right',
+    },
+    foodTime: {
+      fontSize: 16,
+      color: colors.text,
+      textAlign: 'center',
+      minWidth: 80,
+    },
   });
 
   const formatTimeDisplay = (timeString: string) => {
@@ -179,19 +191,19 @@ export function FoodSection({
 
       {sortedFoods.map(food => (
         <View key={food.id} style={styles.foodItem}>
-          <Text style={styles.foodText}>{food.name}</Text>
-          <Text style={styles.foodText}>
-            {formatTimeDisplay(food.time)}
-          </Text>
+          <TouchableOpacity onPress={() => onDeleteFood(food.id)}>
+            <Ionicons name="trash-outline" size={20} color={colors.error} />
+          </TouchableOpacity>
           <TouchableOpacity 
             onPress={() => onEditFood(food)}
             style={{ marginRight: 10 }}
           >
             <Ionicons name="pencil" size={20} color={colors.primary} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => onDeleteFood(food.id)}>
-            <Ionicons name="trash-outline" size={20} color={colors.error} />
-          </TouchableOpacity>
+          <Text style={styles.foodTime}>
+            {formatTimeDisplay(food.time)}
+          </Text>
+          <Text style={styles.foodName}>{food.name}</Text>
         </View>
       ))}
     </View>
