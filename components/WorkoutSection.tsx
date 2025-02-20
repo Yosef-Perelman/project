@@ -16,7 +16,7 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 16,
+      marginBottom: 8,
       backgroundColor: colors.card,
       borderRadius: 12,
       padding: 14,
@@ -26,11 +26,12 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
       fontWeight: '600',
       color: colors.text,
       marginBottom: 10,
+      textAlign: 'right',
     },
     workoutContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 8,
+      //marginBottom: 8,
     },
     checkbox: {
       width: 24,
@@ -38,7 +39,7 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
       borderWidth: 2,
       borderColor: colors.primary,
       borderRadius: 6,
-      marginRight: 8,
+      marginLeft: 8,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -54,6 +55,16 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>{t('workout')}</Text>
       <View style={styles.workoutContainer}>
+      <TextInput
+          style={[styles.input, { flex: 1, marginBottom: 0 }]}
+          placeholder={t('workoutPlaceholder')}
+          placeholderTextColor={colors.text}
+          value={workout.description}
+          onChangeText={text =>
+            onWorkoutUpdate({ ...workout, description: text })
+          }
+          editable={workout.completed}
+        />
         <TouchableOpacity
           style={styles.checkbox}
           onPress={() => {
@@ -67,16 +78,7 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
             <Ionicons name="checkmark" size={20} color={colors.primary} />
           )}
         </TouchableOpacity>
-        <TextInput
-          style={[styles.input, { flex: 1, marginBottom: 0 }]}
-          placeholder={t('workoutPlaceholder')}
-          placeholderTextColor={colors.text}
-          value={workout.description}
-          onChangeText={text =>
-            onWorkoutUpdate({ ...workout, description: text })
-          }
-          editable={workout.completed}
-        />
+        
       </View>
     </View>
   );

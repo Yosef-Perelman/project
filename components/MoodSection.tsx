@@ -25,6 +25,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
       fontWeight: '600',
       color: colors.text,
       marginBottom: 10,
+      textAlign: 'right',
     },
     moodContainer: {
       alignItems: 'center',
@@ -33,6 +34,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
       flexDirection: 'row',
       justifyContent: 'center',
       marginVertical: 4,
+      marginBottom: 8,
     },
     moodButton: {
       width: 40,  // Increased from 32
@@ -41,6 +43,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
       justifyContent: 'center',
       alignItems: 'center',
       margin: 4,
+      
     },
     moodButtonText: {
       color: '#FFFFFF',
@@ -52,7 +55,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
       borderRadius: 8,
       padding: 12,
       color: colors.text,
-      marginBottom: 8,
+      //marginBottom: 8,
     },
   });
 

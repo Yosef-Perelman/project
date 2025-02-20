@@ -49,7 +49,7 @@ export function FoodSection({
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 16,
+      marginBottom: 8,
       backgroundColor: '#2C2C2E',
       borderRadius: 20,
       padding: 16,
@@ -63,12 +63,13 @@ export function FoodSection({
       fontSize: 24,
       fontWeight: '700',
       color: '#FFFFFF',
-      marginBottom: 16,
+      marginBottom: 8,
+      textAlign: 'right',
     },
     foodInputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 16,
+      marginBottom: 8,
       backgroundColor: '#1C1C1E',
       borderRadius: 16,
       padding: 6,
