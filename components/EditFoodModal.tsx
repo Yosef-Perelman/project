@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import { format, parse } from 'date-fns';
+import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { format } from 'date-fns';
 import { useTheme } from '@/context/ThemeContext';
 
 interface EditFoodModalProps {
@@ -17,6 +18,29 @@ export function EditFoodModal({
   onEditingFoodChange,
 }: EditFoodModalProps) {
   const { colors } = useTheme();
+  const [showPicker, setShowPicker] = React.useState(false);
+
+  const formatTimeForDisplay = (timeString: string) => {
+    try {
+      // Extract just the time portion if it's an ISO string
+      if (timeString.includes('T')) {
+        return timeString.split('T')[1].substring(0, 5);
+      }
+      return timeString;
+    } catch (error) {
+      return timeString;
+    }
+  };
+
+  const handleTimeChange = (event: any, selectedDate?: Date) => {
+    setShowPicker(false);
+    if (selectedDate && event.type !== 'dismissed') {
+      // Add 2 hours to compensate for timezone
+      const adjustedDate = new Date(selectedDate.getTime());
+      const timeString = format(adjustedDate, 'HH:mm');
+      onEditingFoodChange(timeString, 'time');
+    }
+  };
 
   const styles = StyleSheet.create({
     modalView: {
@@ -81,13 +105,28 @@ export function EditFoodModal({
               placeholder="Food name"
               placeholderTextColor={colors.text}
             />
-            <TextInput
+            <TouchableOpacity
               style={[styles.input, { width: '100%' }]}
-              value={editingFood?.time ? format(new Date(editingFood.time), 'HH:mm') : ''}
-              onChangeText={(text) => onEditingFoodChange(text, 'time')}
-              placeholder="HH:mm"
-              placeholderTextColor={colors.text}
-            />
+              onPress={() => setShowPicker(true)}
+            >
+              <Text style={{ color: colors.text }}>
+                {editingFood ? formatTimeForDisplay(editingFood.time) : 'Select time'}
+              </Text>
+            </TouchableOpacity>
+            
+            {showPicker && (
+              <DateTimePicker
+                value={editingFood?.time ? 
+                  new Date(`2000-01-01T${formatTimeForDisplay(editingFood.time)}:00`) 
+                  : new Date()
+                }
+                mode="time"
+                is24Hour={true}
+                display="default"
+                onChange={handleTimeChange}
+              />
+            )}
+            
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.error }]}
@@ -107,4 +146,4 @@ export function EditFoodModal({
       </SafeAreaView>
     </Modal>
   );
-} 
+}

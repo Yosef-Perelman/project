@@ -53,26 +53,24 @@ export default function HomeScreen() {
 
   const handleAddFood = () => {
     if (newFood.trim()) {
-      try {
-        const timeDate = parse(newFoodTime, 'HH:mm', new Date());
-        addFoodEntry({
-          name: newFood.trim(),
-          time: timeDate.toISOString(),
-        });
-        setNewFood('');
-      } catch (error) {
-        console.error('Invalid time format');
-      }
+      addFoodEntry({
+        name: newFood.trim(),
+        time: newFoodTime, // Now we can use the time string directly
+      });
+      setNewFood('');
     }
   };
 
   const handleUpdateFood = () => {
     if (editingFood?.name.trim()) {
       try {
-        const timeDate = parse(editingFood.time.split('T')[1].substring(0, 5), 'HH:mm', new Date());
+        const timeString = editingFood.time.includes('T') 
+          ? editingFood.time.split('T')[1].substring(0, 5) 
+          : editingFood.time;
+        
         updateFoodEntry(editingFood.id, {
           name: editingFood.name.trim(),
-          time: timeDate.toISOString(),
+          time: timeString, // Just store the time string directly
         });
         setEditingFood(null);
       } catch (error) {
@@ -180,7 +178,7 @@ export default function HomeScreen() {
           setEditingFood(prev => prev ? { 
             ...prev, 
             [field]: field === 'time' 
-              ? parse(text, 'HH:mm', new Date()).toISOString()
+              ? text  // Just use the time string directly instead of converting to ISO
               : text 
           } : null)
         }

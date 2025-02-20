@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { format } from 'date-fns';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from '@/context/ThemeContext';
 import { FoodEntry } from '@/types/nutrition';
 
@@ -30,8 +31,19 @@ export function FoodSection({
   onAddFood,
   onEditFood,
   onDeleteFood,
+  styles: customStyles,
 }: FoodSectionProps) {
   const { colors } = useTheme();
+  const [showPicker, setShowPicker] = React.useState(false);
+
+  const handleTimeChange = (event: any, selectedDate?: Date) => {
+    setShowPicker(false);
+    if (selectedDate && event.type !== 'dismissed') {
+      const adjustedDate = new Date(selectedDate.getTime());
+      const timeString = format(adjustedDate, 'HH:mm');
+      onNewFoodTimeChange(timeString);
+    }
+  };
 
   const styles = StyleSheet.create({
     section: {
@@ -71,6 +83,7 @@ export function FoodSection({
       backgroundColor: colors.primary,
       borderRadius: 8,
       alignItems: 'center',
+      marginBottom: 16,
     },
     addButtonText: {
       fontSize: 16,
@@ -81,6 +94,9 @@ export function FoodSection({
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 8,
+      borderTopWidth: 1,
+      borderTopColor: colors.border,
+      paddingTop: 8,
     },
     foodText: {
       flex: 1,
@@ -88,6 +104,20 @@ export function FoodSection({
       color: colors.text,
     },
   });
+
+  const formatTimeDisplay = (timeString: string) => {
+    // If timeString is already in HH:mm format, return it
+    if (/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeString)) {
+      return timeString;
+    }
+    // Otherwise, try to parse it as a date
+    try {
+      const date = new Date(timeString);
+      return format(date, 'HH:mm');
+    } catch {
+      return timeString; // Return original if parsing fails
+    }
+  };
 
   return (
     <View style={styles.section}>
@@ -100,22 +130,35 @@ export function FoodSection({
           value={newFood}
           onChangeText={onNewFoodChange}
         />
-        <TextInput
+        <TouchableOpacity
           style={styles.timeInput}
-          placeholder="HH:mm"
-          placeholderTextColor={colors.text}
-          value={newFoodTime}
-          onChangeText={onNewFoodTimeChange}
-        />
+          onPress={() => setShowPicker(true)}
+        >
+          <Text style={{ color: colors.text }}>
+            {newFoodTime || 'HH:mm'}
+          </Text>
+        </TouchableOpacity>
       </View>
+
+      {showPicker && (
+        <DateTimePicker
+          value={new Date(`2000-01-01T${newFoodTime}:00`)}
+          mode="time"
+          is24Hour={true}
+          display="default"
+          onChange={handleTimeChange}
+        />
+      )}
+
       <TouchableOpacity style={styles.addButton} onPress={onAddFood}>
         <Text style={styles.addButtonText}>Add Food</Text>
       </TouchableOpacity>
+
       {foods.map(food => (
         <View key={food.id} style={styles.foodItem}>
           <Text style={styles.foodText}>{food.name}</Text>
           <Text style={styles.foodText}>
-            {format(new Date(food.time), 'HH:mm')}
+            {formatTimeDisplay(food.time)}
           </Text>
           <TouchableOpacity 
             onPress={() => onEditFood(food)}
@@ -130,4 +173,4 @@ export function FoodSection({
       ))}
     </View>
   );
-} 
+}
