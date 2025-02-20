@@ -109,7 +109,7 @@ export function FoodSection({
     foodItem: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 8,
+      //marginBottom: 8,
       borderTopWidth: 1,
       borderTopColor: colors.border,
       paddingTop: 8,
@@ -130,6 +130,36 @@ export function FoodSection({
       color: colors.text,
       textAlign: 'center',
       minWidth: 80,
+    },
+    headerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      // marginBottom: 8,
+      paddingBottom: 8,
+      // borderBottomWidth: 1,
+      // borderBottomColor: colors.border,
+    },
+    headerText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+    },
+    headerName: {
+      flex: 1,
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      textAlign: 'right',
+    },
+    headerTime: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      textAlign: 'center',
+      minWidth: 80,
+    },
+    actionButtonsSpace: {
+      width: 60, // Space for edit and delete buttons
     },
   });
 
@@ -188,6 +218,12 @@ export function FoodSection({
       <TouchableOpacity style={styles.addButton} onPress={onAddFood}>
         <Text style={styles.addButtonText}>{t('addFood')}</Text>
       </TouchableOpacity>
+
+      <View style={styles.headerRow}>
+        <View style={styles.actionButtonsSpace} />
+        <Text style={styles.headerTime}>זמן</Text>
+        <Text style={styles.headerName}>מאכל</Text>
+      </View>
 
       {sortedFoods.map(food => (
         <View key={food.id} style={styles.foodItem}>

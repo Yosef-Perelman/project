@@ -19,6 +19,7 @@ export function DateNavigator({ selectedDate, onNavigate, animatedStyle }: DateN
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 20,
+      marginTop: 20,
     },
     dateText: {
       fontSize: 24,

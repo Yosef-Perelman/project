@@ -26,7 +26,7 @@ import { EditFoodModal } from '@/components/EditFoodModal';
 
 export default function HomeScreen() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const { theme, colors, toggleTheme } = useTheme();
+  const { colors } = useTheme();
   const {
     dailyEntry,
     addFoodEntry,
@@ -169,10 +169,10 @@ export default function HomeScreen() {
           onMoodUpdate={updateMood}
         />
 
+        {/* Theme toggle button - commented out for now
         <TouchableOpacity
           style={[
             styles.themeToggle,
-            
           ]}
           onPress={toggleTheme}
         >
@@ -182,6 +182,7 @@ export default function HomeScreen() {
             color={colors.text}
           />
         </TouchableOpacity>
+        */}
       </ScrollView>
 
       <EditFoodModal
