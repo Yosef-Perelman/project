@@ -15,7 +15,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 16,
+      marginBottom: 4,
       backgroundColor: colors.card,
       borderRadius: 12,
       padding: 14,

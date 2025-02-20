@@ -5,6 +5,12 @@ import { useColorScheme } from 'react-native';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { LanguageProvider } from '@/context/LanguageContext';
 
+declare global {
+  interface Window {
+    frameworkReady?: () => void;
+  }
+}
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 

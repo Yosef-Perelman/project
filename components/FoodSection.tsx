@@ -134,6 +134,13 @@ export function FoodSection({
     }
   };
 
+  // Sort foods by time
+  const sortedFoods = [...foods].sort((a, b) => {
+    const timeA = a.time;
+    const timeB = b.time;
+    return timeA.localeCompare(timeB);
+  });
+
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>{t('foodEntries')}</Text>
@@ -169,7 +176,7 @@ export function FoodSection({
         <Text style={styles.addButtonText}>{t('addFood')}</Text>
       </TouchableOpacity>
 
-      {foods.map(food => (
+      {sortedFoods.map(food => (
         <View key={food.id} style={styles.foodItem}>
           <Text style={styles.foodText}>{food.name}</Text>
           <Text style={styles.foodText}>

@@ -86,20 +86,17 @@ export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#1C1C1E', // Dark background
+      backgroundColor: '#1C1C1E',
     },
     content: {
       padding: 20,
-      paddingBottom: 80,
     },
     themeToggle: {
-      position: 'absolute',
-      bottom: 20,
-      right: 20,
-      zIndex: 1,
       padding: 12,
       backgroundColor: '#2C2C2E',
       borderRadius: 25,
+      alignSelf: 'flex-end',
+      marginRight: 4,
       shadowColor: "#000",
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.3,
@@ -171,18 +168,21 @@ export default function HomeScreen() {
           mood={dailyEntry.mood}
           onMoodUpdate={updateMood}
         />
-      </ScrollView>
 
-      <TouchableOpacity
-        style={styles.themeToggle}
-        onPress={toggleTheme}
-      >
-        <Ionicons
-          name={theme === 'dark' ? 'sunny' : 'moon'}
-          size={24}
-          color={colors.text}
-        />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.themeToggle,
+            
+          ]}
+          onPress={toggleTheme}
+        >
+          <Ionicons
+            name={theme === 'dark' ? 'sunny' : 'moon'}
+            size={24}
+            color={colors.text}
+          />
+        </TouchableOpacity>
+      </ScrollView>
 
       <EditFoodModal
         editingFood={editingFood}
