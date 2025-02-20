@@ -86,37 +86,51 @@ export default function HomeScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.background,
+      backgroundColor: '#1C1C1E', // Dark background
     },
     content: {
       padding: 20,
-      paddingBottom: 80, // Add padding to avoid content being hidden by theme toggle
+      paddingBottom: 80,
     },
     themeToggle: {
       position: 'absolute',
-      bottom: 20,  // Changed from top to bottom
+      bottom: 20,
       right: 20,
       zIndex: 1,
-      padding: 8,
-      backgroundColor: colors.card,
-      borderRadius: 20,
+      padding: 12,
+      backgroundColor: '#2C2C2E',
+      borderRadius: 25,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
+      elevation: 8,
     },
     foodItem: {
       flexDirection: 'row',
-      justifyContent: 'space-between', // This will push items to opposite ends
+      justifyContent: 'space-between',
       alignItems: 'center',
-      paddingVertical: 8,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      backgroundColor: '#2C2C2E',
+      borderRadius: 16,
+      marginBottom: 10,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+      elevation: 4,
     },
     foodName: {
-      color: colors.text,
+      color: '#FFFFFF',
       flex: 1,
-      marginRight: 10, // Add some space between name and time
+      fontSize: 16,
+      fontWeight: '500',
     },
     foodTime: {
-      color: colors.text,
-      minWidth: 60, // Ensure consistent width for time
+      color: '#FF9F0A', // Orange accent color
+      fontSize: 14,
+      fontWeight: '600',
     },
   });
 
