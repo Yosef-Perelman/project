@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@/context/ThemeContext';
 import { MoodEntry } from '@/types/nutrition';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface MoodSectionProps {
   mood: MoodEntry;
@@ -10,19 +11,20 @@ interface MoodSectionProps {
 
 export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
   const { colors } = useTheme();
+  const { t } = useLanguage();
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 20,
+      marginBottom: 16,
       backgroundColor: colors.card,
       borderRadius: 12,
-      padding: 16,
+      padding: 14,
     },
     sectionTitle: {
       fontSize: 18,
       fontWeight: '600',
       color: colors.text,
-      marginBottom: 12,
+      marginBottom: 10,
     },
     moodContainer: {
       alignItems: 'center',
@@ -30,7 +32,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
     moodRatingRow: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginVertical: 6,
+      marginVertical: 4,
     },
     moodButton: {
       width: 40,  // Increased from 32
@@ -59,7 +61,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
 
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Mood</Text>
+      <Text style={styles.sectionTitle}>{t('mood')}</Text>
       <View style={styles.moodContainer}>
         <View>
           <View style={styles.moodRatingRow}>
@@ -103,7 +105,7 @@ export function MoodSection({ mood, onMoodUpdate }: MoodSectionProps) {
 
         <TextInput
           style={[styles.input, { width: '100%' }]}
-          placeholder="How are you feeling today?"
+          placeholder={t('moodPlaceholder')}
           placeholderTextColor={colors.text}
           value={mood.description}
           onChangeText={text =>

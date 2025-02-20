@@ -3,6 +3,7 @@ import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, SafeAreaVie
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
 import { useTheme } from '@/context/ThemeContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface EditFoodModalProps {
   editingFood: { id: string; name: string; time: string } | null;
@@ -18,6 +19,7 @@ export function EditFoodModal({
   onEditingFoodChange,
 }: EditFoodModalProps) {
   const { colors } = useTheme();
+  const { t } = useLanguage();
   const [showPicker, setShowPicker] = React.useState(false);
 
   const formatTimeForDisplay = (timeString: string) => {
@@ -109,12 +111,12 @@ export function EditFoodModal({
           paddingHorizontal: 20,
         }]}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Edit Food Entry</Text>
+            <Text style={styles.modalText}>{t('editFoodEntry')}</Text>
             <TextInput
               style={[styles.input, { width: '100%' }]}
               value={editingFood?.name || ''}
               onChangeText={(text) => onEditingFoodChange(text, 'name')}
-              placeholder="Food name"
+              placeholder={t('foodName')}
               placeholderTextColor={colors.text}
             />
             <TouchableOpacity
@@ -144,13 +146,13 @@ export function EditFoodModal({
                 style={[styles.modalButton, { backgroundColor: colors.error }]}
                 onPress={onClose}
               >
-                <Text style={styles.addButtonText}>Cancel</Text>
+                <Text style={styles.addButtonText}>{t('cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: colors.primary }]}
                 onPress={onUpdate}
               >
-                <Text style={styles.addButtonText}>Save</Text>
+                <Text style={styles.addButtonText}>{t('save')}</Text>
               </TouchableOpacity>
             </View>
           </View>

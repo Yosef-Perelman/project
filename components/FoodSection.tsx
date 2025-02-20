@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from '@/context/ThemeContext';
 import { FoodEntry } from '@/types/nutrition';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface FoodSectionProps {
   foods: FoodEntry[];
@@ -35,6 +36,7 @@ export function FoodSection({
 }: FoodSectionProps) {
   const { colors } = useTheme();
   const [showPicker, setShowPicker] = React.useState(false);
+  const { t } = useLanguage();
 
   const handleTimeChange = (event: any, selectedDate?: Date) => {
     setShowPicker(false);
@@ -47,10 +49,10 @@ export function FoodSection({
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 24,
+      marginBottom: 16,
       backgroundColor: '#2C2C2E',
       borderRadius: 20,
-      padding: 20,
+      padding: 16,
       shadowColor: "#000",
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.2,
@@ -61,7 +63,7 @@ export function FoodSection({
       fontSize: 24,
       fontWeight: '700',
       color: '#FFFFFF',
-      marginBottom: 20,
+      marginBottom: 16,
     },
     foodInputContainer: {
       flexDirection: 'row',
@@ -134,11 +136,11 @@ export function FoodSection({
 
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Food Entries</Text>
+      <Text style={styles.sectionTitle}>{t('foodEntries')}</Text>
       <View style={styles.foodInputContainer}>
         <TextInput
           style={[styles.input, { flex: 1, marginRight: 8 }]}
-          placeholder="Add food entry..."
+          placeholder={t('addFoodPlaceholder')}
           placeholderTextColor={colors.text}
           value={newFood}
           onChangeText={onNewFoodChange}
@@ -148,7 +150,7 @@ export function FoodSection({
           onPress={() => setShowPicker(true)}
         >
           <Text style={{ color: colors.text }}>
-            {newFoodTime || 'HH:mm'}
+            {newFoodTime || t('selectTime')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -164,7 +166,7 @@ export function FoodSection({
       )}
 
       <TouchableOpacity style={styles.addButton} onPress={onAddFood}>
-        <Text style={styles.addButtonText}>Add Food</Text>
+        <Text style={styles.addButtonText}>{t('addFood')}</Text>
       </TouchableOpacity>
 
       {foods.map(food => (

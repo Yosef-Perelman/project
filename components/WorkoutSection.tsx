@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeContext';
 import { WorkoutEntry } from '@/types/nutrition';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface WorkoutSectionProps {
   workout: WorkoutEntry;
@@ -11,19 +12,20 @@ interface WorkoutSectionProps {
 
 export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps) {
   const { colors } = useTheme();
+  const { t } = useLanguage();
 
   const styles = StyleSheet.create({
     section: {
-      marginBottom: 20,
+      marginBottom: 16,
       backgroundColor: colors.card,
       borderRadius: 12,
-      padding: 16,
+      padding: 14,
     },
     sectionTitle: {
       fontSize: 18,
       fontWeight: '600',
       color: colors.text,
-      marginBottom: 12,
+      marginBottom: 10,
     },
     workoutContainer: {
       flexDirection: 'row',
@@ -50,7 +52,7 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
 
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Workout</Text>
+      <Text style={styles.sectionTitle}>{t('workout')}</Text>
       <View style={styles.workoutContainer}>
         <TouchableOpacity
           style={styles.checkbox}
@@ -67,7 +69,7 @@ export function WorkoutSection({ workout, onWorkoutUpdate }: WorkoutSectionProps
         </TouchableOpacity>
         <TextInput
           style={[styles.input, { flex: 1, marginBottom: 0 }]}
-          placeholder="Describe your workout..."
+          placeholder={t('workoutPlaceholder')}
           placeholderTextColor={colors.text}
           value={workout.description}
           onChangeText={text =>
