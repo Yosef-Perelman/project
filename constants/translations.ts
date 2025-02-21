@@ -13,6 +13,7 @@ export const translations = {
     mood: "Mood",
     moodPlaceholder: "How are you feeling today?",
     statistics: "Statistics",
+    monthlyMood: "Monthly Mood",
   },
   he: {
     foodEntries: "מאכלים",
@@ -28,5 +29,6 @@ export const translations = {
     mood: "תחושה",
     moodPlaceholder: "איך אתה מרגיש היום?",
     statistics: "סטטיסטיקה",
+    monthlyMood: "תחושה חודשית",
   }
 }; 
