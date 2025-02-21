@@ -12,6 +12,7 @@ export const translations = {
     workoutPlaceholder: "Describe your workout...",
     mood: "Mood",
     moodPlaceholder: "How are you feeling today?",
+    statistics: "Statistics",
   },
   he: {
     foodEntries: "מאכלים",
@@ -26,5 +27,6 @@ export const translations = {
     workoutPlaceholder: "תאר את האימון שלך...",
     mood: "תחושה",
     moodPlaceholder: "איך אתה מרגיש היום?",
+    statistics: "סטטיסטיקה",
   }
 }; 

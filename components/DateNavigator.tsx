@@ -20,24 +20,34 @@ export function DateNavigator({ selectedDate, onNavigate, animatedStyle }: DateN
       justifyContent: 'space-between',
       marginBottom: 20,
       marginTop: 20,
+      flex: 1,
     },
     dateText: {
-      fontSize: 24,
+      fontSize: 28,
       fontWeight: 'bold',
       color: colors.text,
+    },
+    navigationButton: {
+      padding: 8,
     },
   });
 
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={() => onNavigate('prev')}>
-        <Ionicons name="chevron-back" size={24} color={colors.text} />
+      <TouchableOpacity 
+        style={styles.navigationButton}
+        onPress={() => onNavigate('prev')}
+      >
+        <Ionicons name="chevron-back" size={32} color={colors.text} />
       </TouchableOpacity>
       <Text style={styles.dateText}>
         {format(selectedDate, 'MMMM d, yyyy')}
       </Text>
-      <TouchableOpacity onPress={() => onNavigate('next')}>
-        <Ionicons name="chevron-forward" size={24} color={colors.text} />
+      <TouchableOpacity 
+        style={styles.navigationButton}
+        onPress={() => onNavigate('next')}
+      >
+        <Ionicons name="chevron-forward" size={32} color={colors.text} />
       </TouchableOpacity>
     </View>
   );

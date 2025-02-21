@@ -23,8 +23,10 @@ import { FoodSection } from '@/components/FoodSection';
 import { WorkoutSection } from '@/components/WorkoutSection';
 import { MoodSection } from '@/components/MoodSection';
 import { EditFoodModal } from '@/components/EditFoodModal';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { colors } = useTheme();
   const {
@@ -129,6 +131,18 @@ export default function HomeScreen() {
       fontSize: 14,
       fontWeight: '600',
     },
+    headerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    statsButton: {
+      padding: 8,
+      backgroundColor: colors.card,
+      borderRadius: 12,
+      marginLeft: 8,
+    },
   });
 
   return (
@@ -137,11 +151,19 @@ export default function HomeScreen() {
         style={styles.content}
         contentContainerStyle={{ flexGrow: 1 }}
       >
-        <DateNavigator 
-          selectedDate={selectedDate}
-          onNavigate={navigateDate}
-          animatedStyle={animatedStyle}
-        />
+        <View style={styles.headerContainer}>
+          <DateNavigator 
+            selectedDate={selectedDate}
+            onNavigate={navigateDate}
+            animatedStyle={animatedStyle}
+          />
+          <TouchableOpacity
+            style={styles.statsButton}
+            onPress={() => router.push('/statistics')}
+          >
+            <Ionicons name="stats-chart" size={24} color={colors.text} />
+          </TouchableOpacity>
+        </View>
 
         <FoodSection
           foods={dailyEntry.foods}
